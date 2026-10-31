@@ -14,7 +14,7 @@ A core implementation and benchmark workflow for predicting surface-protein abun
 </p>
 
 <p>
-  <img src="img/figure1.png" alt="Overview of the scRAC framework" width="920">
+  <img src="img/Figure1.png" alt="Overview of the scRAC framework" width="920">
 </p>
 
 </div>
