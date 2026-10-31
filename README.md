@@ -7,38 +7,52 @@
 A core implementation and benchmark workflow for predicting surface-protein abundance from single-cell RNA profiles.
 
 <p>
-  <img src="https://img.shields.io/badge/Python-3.10-3776AB?logo=python&logoColor=white" alt="Python 3.10">
-  <img src="https://img.shields.io/badge/PyTorch-2.2.2-EE4C2C?logo=pytorch&logoColor=white" alt="PyTorch 2.2.2">
-  <img src="https://img.shields.io/badge/Cross--validation-5--fold-2D6A4F" alt="Five-fold cross-validation">
-  <img src="https://img.shields.io/badge/Inference-NFE%3D1-6C63FF" alt="One-step inference">
+  <img src="https://img.shields.io/badge/Python-3.10-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3.10">
+  <img src="https://img.shields.io/badge/PyTorch-2.2.2-EE4C2C?style=flat-square&logo=pytorch&logoColor=white" alt="PyTorch 2.2.2">
+  <img src="https://img.shields.io/badge/Cross--validation-5--fold-2D6A4F?style=flat-square" alt="Five-fold cross-validation">
+  <img src="https://img.shields.io/badge/Inference-NFE%3D1-6C63FF?style=flat-square" alt="One-step inference">
+  <img src="https://img.shields.io/badge/Configuration-Paper--aligned-0F766E?style=flat-square" alt="Paper-aligned configuration">
 </p>
 
 <p>
   <img src="img/Figure1.png" alt="Overview of the scRAC framework" width="920">
 </p>
 
+  <p>
+    <img src="https://img.shields.io/badge/01-Representation%20learning-2563EB?style=flat-square" alt="Stage 1">
+    <img src="https://img.shields.io/badge/02-Reference%20retrieval-0D9488?style=flat-square" alt="Stage 2">
+    <img src="https://img.shields.io/badge/03-Conditional%20correction-7C3AED?style=flat-square" alt="Stage 3">
+    <img src="https://img.shields.io/badge/Output-Protein%20prediction-D97706?style=flat-square" alt="Output">
+  </p>
+
 </div>
 
 ---
 
-## Overview
+## 🧬 Overview
 
 scRAC translates single-cell RNA profiles into surface-protein abundance through three stages:
 
+<p>
+  <img src="https://img.shields.io/badge/Input-scRNA--seq%20profiles-2563EB?style=flat-square" alt="Input">
+  <img src="https://img.shields.io/badge/Core-Reference--guided%20learning-0D9488?style=flat-square" alt="Core">
+  <img src="https://img.shields.io/badge/Prediction-Surface%20proteins-D97706?style=flat-square" alt="Prediction">
+</p>
+
 | Stage | Component | Main operation |
 |:---:|---|---|
-| **1** | Protein-guided representation learning | Protein-targeted gene screening and a contrastive ZINB autoencoder |
-| **2** | Reference-based protein prior | Exact cosine retrieval of five reference cells and similarity-weighted protein-source synthesis |
-| **3** | Conditional correction | Masked-source auxiliary flow supervision and endpoint regression, implemented with AdaLN-Zero blocks |
+| 🧬 **1** | Protein-guided representation learning | Protein-targeted gene screening and a contrastive ZINB autoencoder |
+| 🔎 **2** | Reference-based protein prior | Exact cosine retrieval of five reference cells and similarity-weighted protein-source synthesis |
+| 🌊 **3** | Conditional correction | Masked-source auxiliary flow supervision and endpoint regression, implemented with AdaLN-Zero blocks |
 
 At inference, the learned correction is applied as a **deterministic one-step update (NFE = 1)**.
 
-> **Code scope**
-> This repository provides the core scRAC model and benchmark workflow. The complete project code is planned for release after the peer-review process.
+> [!IMPORTANT]
+> **Code scope** — This repository provides the core scRAC model and benchmark workflow. The complete project code is planned for release after the peer-review process.
 
 The configuration in [`configs/paper.yaml`](configs/paper.yaml) follows the architecture, objectives, optimization settings, retrieval protocol, and inference rule described in the paper. The benchmark entry point checks the fixed configuration before training.
 
-## Contents
+## 🧭 Contents
 
 - [Overview](#overview)
 - [Repository structure](#repository-structure)
@@ -51,7 +65,7 @@ The configuration in [`configs/paper.yaml`](configs/paper.yaml) follows the arch
 - [Tests](#tests)
 - [Implementation notes](#implementation-notes)
 
-## Repository structure
+## 🗂️ Repository structure
 
 ```text
 scRAC/
@@ -81,9 +95,9 @@ scRAC/
 └── requirements.txt
 ```
 
-## Installation
+## ⚙️ Installation
 
-### Conda (recommended)
+### 🐍 Conda (recommended)
 
 ```bash
 conda env create -f environment.yml
@@ -92,7 +106,7 @@ conda activate scrac
 
 The environment file pins Python 3.10 and PyTorch 2.2.2, together with the main scientific Python dependencies.
 
-### pip / virtual environment
+### 📦 pip / virtual environment
 
 ```bash
 python -m venv .venv
@@ -102,19 +116,19 @@ pip install -r requirements.txt
 
 For CUDA execution, install the PyTorch build compatible with your local CUDA driver before installing the remaining requirements.
 
-## Dataset preparation
+## 🧫 Dataset preparation
 
 The benchmark uses three paired RNA–protein datasets:
 
 | Dataset | GEO accession | Assay | Cells | Genes | Proteins |
 |---|---|---|---:|---:|---:|
-| **CBMC** | [GSE100866](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE100866) | CITE-seq | 8,617 | 36,280 | 13 |
-| **ECCITE** | [GSE164378](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164378) | ECCITE-seq 5′ | 49,147 | 33,538 | 54 |
-| **GSE3P** | [GSE164378](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164378) | CITE-seq 3′ | 161,764 | 33,538 | 228 |
+| 🧪 **CBMC** | [GSE100866](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE100866) | CITE-seq | 8,617 | 36,280 | 13 |
+| 🧫 **ECCITE** | [GSE164378](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164378) | ECCITE-seq 5′ | 49,147 | 33,538 | 54 |
+| 🧬 **GSE3P** | [GSE164378](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164378) | CITE-seq 3′ | 161,764 | 33,538 | 228 |
 
 See [`datasets/README.md`](datasets/README.md) for the source files, manual download instructions, and expected input layout.
 
-### 1. Download the processed matrices
+### ⬇️ 1. Download the processed matrices
 
 Download all three datasets:
 
@@ -130,7 +144,7 @@ bash datasets/download_geo.sh eccite
 bash datasets/download_geo.sh gse3p
 ```
 
-### 2. Convert the matrices to `.h5ad`
+### 🔄 2. Convert the matrices to `.h5ad`
 
 ```bash
 python datasets/prepare_h5ad.py \
@@ -158,9 +172,11 @@ The converter aligns RNA and protein matrices by cell barcode and stores the dat
 
 Within each cross-validation fold, RNA and protein counts are library-size normalized to 10,000 and transformed with `log1p`. Gene screening is fitted on the optimization partition: the top 100 genes for each protein are unioned, ranked by their maximum absolute Pearson correlation, and capped at 1,000 genes.
 
-## Run the benchmark
+## 🚀 Run the benchmark
 
 The following command runs the five-fold CBMC benchmark:
+
+<sub>🚀 Prepare data → 🧠 Train and validate → 📊 Save fold-wise and pooled results</sub>
 
 ```bash
 python experiments/run_5fold.py \
@@ -178,7 +194,7 @@ For the other datasets, use the corresponding input file and dataset name:
 | ECCITE | `datasets/processed/eccite_5p.h5ad` | `ECCITE` |
 | GSE3P | `datasets/processed/gse3p_3p.h5ad` | `GSE3P` |
 
-### Reuse predefined fold assignments
+### 🔁 Reuse predefined fold assignments
 
 To reproduce an established split, pass a JSON file containing five fold definitions:
 
@@ -193,24 +209,24 @@ python experiments/run_5fold.py \
 
 Each fold contains integer-index arrays named `fit`, `validation`, and `test`.
 
-## Paper configuration
+## 🎛️ Paper configuration
 
 The benchmark runner uses the fixed settings in [`configs/paper.yaml`](configs/paper.yaml).
 
 | Component | Setting |
 |---|---|
-| Gene screening | Top 100 genes per protein; union capped at 1,000 |
-| Stage 1 architecture | Hidden 256; latent 128; projection 64; depth 2; dropout 0.1 |
-| Stage 1 objective | `10 × InfoNCE + 0.5 × RNA-ZINB + 0.5 × protein-ZINB` |
-| Stage 1 optimizer | AdamW; 20 epochs; learning rate `4e-4`; weight decay `1e-4`; batch size 256 |
-| Retrieval | L2-normalized 128-d RNA latents; FAISS `IndexFlatIP`; `K = 5`; temperature 1.0 |
-| Stage 3 condition | Query RNA latent concatenated with weighted mean retrieval similarity |
-| Stage 3 architecture | Hidden 512; four AdaLN-Zero blocks; time dimension 64; dropout 0.1 |
-| Stage 3 objective | Mask probability 0.2; endpoint weight 1.0; source noise 0 |
-| Stage 3 optimizer | AdamW; 50 epochs; learning rate `1e-3`; weight decay `1e-4`; batch size 1,024 |
-| Inference | One Euler update; **NFE = 1** |
+| 🧬 Gene screening | Top 100 genes per protein; union capped at 1,000 |
+| 🧱 Stage 1 architecture | Hidden 256; latent 128; projection 64; depth 2; dropout 0.1 |
+| 🎯 Stage 1 objective | `10 × InfoNCE + 0.5 × RNA-ZINB + 0.5 × protein-ZINB` |
+| ⚙️ Stage 1 optimizer | AdamW; 20 epochs; learning rate `4e-4`; weight decay `1e-4`; batch size 256 |
+| 🔎 Retrieval | L2-normalized 128-d RNA latents; FAISS `IndexFlatIP`; `K = 5`; temperature 1.0 |
+| 🧩 Stage 3 condition | Query RNA latent concatenated with weighted mean retrieval similarity |
+| 🌊 Stage 3 architecture | Hidden 512; four AdaLN-Zero blocks; time dimension 64; dropout 0.1 |
+| 🎯 Stage 3 objective | Mask probability 0.2; endpoint weight 1.0; source noise 0 |
+| ⚙️ Stage 3 optimizer | AdamW; 50 epochs; learning rate `1e-3`; weight decay `1e-4`; batch size 1,024 |
+| ⚡ Inference | One Euler update; **NFE = 1** |
 
-## Metrics and outputs
+## 📊 Metrics and outputs
 
 The benchmark runner saves the artifacts needed to inspect and reproduce each fold:
 
@@ -226,7 +242,7 @@ PCC and SCC are reported alongside error and distributional metrics. CMD-P and C
 
 **Five-fold summaries** are calculated from the held-out metric of each fold using the sample standard deviation (`ddof = 1`). Pooled out-of-fold metrics are saved separately and should be interpreted as a different summary.
 
-## Re-evaluate saved predictions
+## ♻️ Re-evaluate saved predictions
 
 Existing fold predictions can be re-evaluated with the paper-aligned metric implementation without retraining:
 
@@ -236,7 +252,7 @@ python experiments/recompute_metrics.py --run-dir outputs/cbmc
 
 The recomputed metrics are written to a new subdirectory, leaving the original result files unchanged.
 
-## Tests
+## ✅ Tests
 
 Run the release consistency checks and unit tests:
 
@@ -245,7 +261,7 @@ python scripts/audit_release.py
 python -m pytest -q
 ```
 
-## Implementation notes
+## 📝 Implementation notes
 
 See [`PAPER_CODE_ALIGNMENT.md`](PAPER_CODE_ALIGNMENT.md) for the mathematical conventions, implementation changes, and rerun guidance.
 
