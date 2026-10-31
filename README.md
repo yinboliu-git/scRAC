@@ -48,7 +48,7 @@ scRAC translates single-cell RNA profiles into surface-protein abundance through
 At inference, the learned correction is applied as a **deterministic one-step update (NFE = 1)**.
 
 > [!IMPORTANT]
-> **Code scope** — This repository provides the core scRAC model and benchmark workflow. The complete project code is planned for release after the peer-review process.
+> **Code scope** — This repository provides the core scRAC model and benchmark workflow. 
 
 The configuration in [`configs/paper.yaml`](configs/paper.yaml) follows the architecture, objectives, optimization settings, retrieval protocol, and inference rule described in the paper. The benchmark entry point checks the fixed configuration before training.
 
